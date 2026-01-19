@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import RequestReview from './pages/RequestReview';
 import PendingRequests from './pages/PendingRequests';
 import MyReviews from './pages/MyReviews';
+import Home from './pages/Home';
 import './App.css';
 
 const AppRoutes = () => {
@@ -23,6 +24,8 @@ const AppRoutes = () => {
 
   return (
     <Routes>
+      <Route path="/" element={<Home />} />
+
       {/* Public Routes */}
       <Route
         path="/login"
@@ -71,9 +74,8 @@ const AppRoutes = () => {
         }
       />
 
-      {/* Redirect root to dashboard or login */}
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      {/* Redirect unknown routes */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };
