@@ -12,6 +12,7 @@ import PendingRequests from './pages/PendingRequests';
 import MyReviews from './pages/MyReviews';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
+import NotFound from './pages/NotFound';
 import './App.css';
 
 const AppRoutes = () => {
@@ -86,8 +87,9 @@ const AppRoutes = () => {
         }
       />
 
-      {/* Redirect unknown routes */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+
+      {/* 404 Route */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
