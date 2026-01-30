@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { ToastProvider } from './context/ToastContext';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -102,6 +103,7 @@ function App() {
           <ToastProvider>
             <div className="app">
               <AppRoutes />
+              <Footer />
             </div>
           </ToastProvider>
         </ThemeProvider>
