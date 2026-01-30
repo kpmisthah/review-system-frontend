@@ -1,7 +1,7 @@
 .navbar {
-    background: rgba(15, 15, 25, 0.9);
+    background: var(--glass-bg);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid var(--glass-border);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -22,6 +22,7 @@
     align-items: center;
     gap: 10px;
     text-decoration: none;
+    color: var(--text-primary);
 }
 
 .brand-icon {
@@ -33,8 +34,8 @@
     font-weight: 700;
     background: linear-gradient(135deg, #6366f1, #a855f7);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .nav-links {
@@ -44,7 +45,7 @@
 
 .nav-link {
     padding: 10px 20px;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-secondary);
     text-decoration: none;
     font-weight: 500;
     border-radius: 10px;
@@ -52,13 +53,18 @@
 }
 
 .nav-link:hover {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    background: var(--bg-card-hover);
 }
 
 .nav-link.active {
     color: #fff;
     background: rgba(99, 102, 241, 0.2);
+}
+
+[data-theme='light'] .nav-link.active {
+    color: var(--primary);
+    background: rgba(99, 102, 241, 0.1);
 }
 
 .nav-user {
@@ -74,13 +80,13 @@
 }
 
 .user-name {
-    color: #fff;
+    color: var(--text-primary);
     font-weight: 500;
     font-size: 0.95rem;
 }
 
 .user-role {
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--text-tertiary);
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -100,6 +106,29 @@
 .btn-logout:hover {
     background: rgba(239, 68, 68, 0.25);
     transform: translateY(-1px);
+}
+
+/* Theme Toggle in Navbar */
+.nav-theme-toggle {
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+    margin-right: 8px;
+}
+
+.nav-theme-toggle:hover {
+    background: var(--bg-secondary);
+    transform: rotate(15deg);
 }
 
 @media (max-width: 768px) {
