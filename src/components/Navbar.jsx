@@ -52,6 +52,9 @@ const Navbar = () => {
                         <span className="user-name">{user?.name}</span>
                         <span className="user-role">{user?.role}</span>
                     </div>
+                    <Link to="/profile" className="btn-icon" title="Edit Profile">
+                        ⚙️
+                    </Link>
                     <button onClick={handleLogout} className="btn-logout">
                         Logout
                     </button>

@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard';
 import RequestReview from './pages/RequestReview';
 import PendingRequests from './pages/PendingRequests';
 import MyReviews from './pages/MyReviews';
+import Profile from './pages/Profile';
 import Home from './pages/Home';
 import './App.css';
 
@@ -71,6 +72,15 @@ const AppRoutes = () => {
           <ProtectedRoute>
             <Navbar />
             <MyReviews />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Navbar />
+            <Profile />
           </ProtectedRoute>
         }
       />

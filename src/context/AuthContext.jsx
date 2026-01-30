@@ -56,6 +56,10 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
+    const updateUser = (userData) => {
+        setUser(prev => ({ ...prev, ...userData }));
+    };
+
     const value = {
         user,
         token,
@@ -63,6 +67,7 @@ export const AuthProvider = ({ children }) => {
         login,
         register,
         logout,
+        updateUser,
         isAuthenticated: !!user,
         isSenior: user?.role === 'SENIOR' || user?.role === 'ADMIN',
         isAdmin: user?.role === 'ADMIN'
