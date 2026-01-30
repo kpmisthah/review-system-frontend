@@ -4,6 +4,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import { ToastProvider } from './context/ToastContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -102,6 +103,7 @@ function App() {
         <ThemeProvider>
           <ToastProvider>
             <div className="app">
+              <ScrollToTop />
               <AppRoutes />
               <Footer />
             </div>
