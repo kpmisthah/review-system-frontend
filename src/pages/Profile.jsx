@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { updateProfile } from '../services/userService';
+import { useToast } from '../context/ToastContext';
 import './Profile.css';
 
 const Profile = () => {
     const { user, updateUser } = useAuth();
+    const { addToast } = useToast();
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState({ type: '', text: '' });
+
 
     const [formData, setFormData] = useState({
         name: user?.name || '',
@@ -23,10 +25,9 @@ const Profile = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setMessage({ type: '', text: '' });
 
         if (formData.newPassword && formData.newPassword !== formData.confirmPassword) {
-            setMessage({ type: 'error', text: 'New passwords do not match' });
+            addToast('New passwords do not match', 'error');
             return;
         }
 
@@ -46,7 +47,7 @@ const Profile = () => {
             const updatedUser = await updateProfile(updateData);
             updateUser(updatedUser);
 
-            setMessage({ type: 'success', text: 'Profile updated successfully!' });
+            addToast('Profile updated successfully!', 'success');
             setFormData(prev => ({
                 ...prev,
                 currentPassword: '',
@@ -54,10 +55,7 @@ const Profile = () => {
                 confirmPassword: ''
             }));
         } catch (error) {
-            setMessage({
-                type: 'error',
-                text: error.response?.data?.error || 'Failed to update profile'
-            });
+            addToast(error.response?.data?.error || 'Failed to update profile', 'error');
         } finally {
             setLoading(false);
         }
@@ -67,12 +65,6 @@ const Profile = () => {
         <div className="profile-container">
             <div className="profile-card">
                 <h1>Edit Profile</h1>
-
-                {message.text && (
-                    <div className={`message ${message.type}`}>
-                        {message.text}
-                    </div>
-                )}
 
                 <form onSubmit={handleSubmit}>
                     <div className="form-section">
