@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { ToastProvider } from './context/ToastContext';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
@@ -96,9 +97,11 @@ function App() {
     <Router>
       <AuthProvider>
         <ThemeProvider>
-          <div className="app">
-            <AppRoutes />
-          </div>
+          <ToastProvider>
+            <div className="app">
+              <AppRoutes />
+            </div>
+          </ToastProvider>
         </ThemeProvider>
       </AuthProvider>
     </Router>
