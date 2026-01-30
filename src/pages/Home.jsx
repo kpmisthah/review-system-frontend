@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import { Navigate } from 'react-router-dom';
 import './Home.css';
 
 const Home = () => {
     const { isAuthenticated } = useAuth();
+    const { theme, toggleTheme } = useTheme();
 
     // If user is already logged in, redirect to dashboard
     if (isAuthenticated) {
@@ -20,6 +22,9 @@ const Home = () => {
                         <span className="brand-text">ReviewHub</span>
                     </div>
                     <div className="nav-auth">
+                        <button onClick={toggleTheme} className="theme-toggle" title="Toggle Theme">
+                            {theme === 'dark' ? '☀️' : '🌙'}
+                        </button>
                         <Link to="/login" className="btn-text">Log In</Link>
                         <Link to="/register" className="btn-primary">Sign Up</Link>
                     </div>
