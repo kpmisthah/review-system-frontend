@@ -1,26 +1,27 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import './Auth.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const { login } = useAuth();
+    const { addToast } = useToast();
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError('');
         setLoading(true);
 
         try {
             await login(email, password);
+            addToast('Login successful!', 'success');
             navigate('/dashboard');
         } catch (err) {
-            setError(err.response?.data?.error || 'Login failed');
+            addToast(err.response?.data?.error || 'Login failed', 'error');
         } finally {
             setLoading(false);
         }
@@ -35,7 +36,7 @@ const Login = () => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="auth-form">
-                    {error && <div className="error-message">{error}</div>}
+
 
                     <div className="form-group">
                         <label htmlFor="email">Email</label>

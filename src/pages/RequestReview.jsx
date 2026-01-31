@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import api from '../services/api';
 import './RequestReview.css';
 
 const RequestReview = () => {
     const { user } = useAuth();
+    const { addToast } = useToast();
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+
     const [seniors, setSeniors] = useState([]);
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
@@ -15,12 +19,16 @@ const RequestReview = () => {
         seniorId: '',
         scheduledAt: ''
     });
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState(false);
 
     useEffect(() => {
         fetchSeniors();
-    }, []);
+
+        // Pre-select mentor if passed in URL
+        const mentorId = searchParams.get('mentor');
+        if (mentorId) {
+            setFormData(prev => ({ ...prev, seniorId: mentorId }));
+        }
+    }, [searchParams]);
 
     const fetchSeniors = async () => {
         try {
@@ -37,15 +45,14 @@ const RequestReview = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError('');
         setLoading(true);
 
         try {
             await api.post('/reviews/requests', formData);
-            setSuccess(true);
-            setTimeout(() => navigate('/my-reviews'), 2000);
+            addToast('Request submitted successfully!', 'success');
+            navigate('/my-reviews');
         } catch (err) {
-            setError(err.response?.data?.error || 'Failed to submit request');
+            addToast(err.response?.data?.error || 'Failed to submit request', 'error');
         } finally {
             setLoading(false);
         }
@@ -62,16 +69,7 @@ const RequestReview = () => {
         'Other'
     ];
 
-    if (success) {
-        return (
-            <div className="request-success">
-                <div className="success-icon">✅</div>
-                <h2>Request Submitted!</h2>
-                <p>A senior will review your request soon.</p>
-                <p className="redirect-text">Redirecting to your reviews...</p>
-            </div>
-        );
-    }
+
 
     return (
         <div className="request-review">
@@ -82,7 +80,6 @@ const RequestReview = () => {
 
             <div className="request-form-card">
                 <form onSubmit={handleSubmit}>
-                    {error && <div className="error-message">{error}</div>}
 
                     <div className="form-group">
                         <label htmlFor="topic">Interview Topic *</label>

@@ -108,6 +108,28 @@
     transform: translateY(-1px);
 }
 
+
+
+.btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+}
+
+.btn-icon:hover {
+    background: var(--bg-secondary);
+    transform: rotate(45deg);
+}
+
 /* Theme Toggle in Navbar */
 .nav-theme-toggle {
     background: var(--bg-input);

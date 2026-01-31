@@ -1,7 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { ToastProvider } from './context/ToastContext';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -9,7 +12,10 @@ import Dashboard from './pages/Dashboard';
 import RequestReview from './pages/RequestReview';
 import PendingRequests from './pages/PendingRequests';
 import MyReviews from './pages/MyReviews';
+import Profile from './pages/Profile';
+import FindMentor from './pages/FindMentor';
 import Home from './pages/Home';
+import NotFound from './pages/NotFound';
 import './App.css';
 
 const AppRoutes = () => {
@@ -74,9 +80,28 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Navbar />
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/find-mentor"
+        element={
+          <ProtectedRoute>
+            <Navbar />
+            <FindMentor />
+          </ProtectedRoute>
+        }
+      />
 
-      {/* Redirect unknown routes */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+
+      {/* 404 Route */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
@@ -86,9 +111,13 @@ function App() {
     <Router>
       <AuthProvider>
         <ThemeProvider>
-          <div className="app">
-            <AppRoutes />
-          </div>
+          <ToastProvider>
+            <div className="app">
+              <ScrollToTop />
+              <AppRoutes />
+              <Footer />
+            </div>
+          </ToastProvider>
         </ThemeProvider>
       </AuthProvider>
     </Router>
