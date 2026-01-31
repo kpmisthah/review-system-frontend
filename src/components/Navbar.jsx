@@ -34,9 +34,14 @@ const Navbar = () => {
                             Pending Requests
                         </Link>
                     ) : (
-                        <Link to="/request-review" className={`nav-link ${isActive('/request-review') ? 'active' : ''}`}>
-                            Request Interview
-                        </Link>
+                        <>
+                            <Link to="/find-mentor" className={`nav-link ${isActive('/find-mentor') ? 'active' : ''}`}>
+                                Find Mentor
+                            </Link>
+                            <Link to="/request-review" className={`nav-link ${isActive('/request-review') ? 'active' : ''}`}>
+                                Request Interview
+                            </Link>
+                        </>
                     )}
 
                     <Link to="/my-reviews" className={`nav-link ${isActive('/my-reviews') ? 'active' : ''}`}>

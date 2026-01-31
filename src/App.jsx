@@ -13,6 +13,7 @@ import RequestReview from './pages/RequestReview';
 import PendingRequests from './pages/PendingRequests';
 import MyReviews from './pages/MyReviews';
 import Profile from './pages/Profile';
+import FindMentor from './pages/FindMentor';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import './App.css';
@@ -85,6 +86,15 @@ const AppRoutes = () => {
           <ProtectedRoute>
             <Navbar />
             <Profile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/find-mentor"
+        element={
+          <ProtectedRoute>
+            <Navbar />
+            <FindMentor />
           </ProtectedRoute>
         }
       />
