@@ -13,6 +13,7 @@ import RequestReview from './pages/RequestReview';
 import PendingRequests from './pages/PendingRequests';
 import MyReviews from './pages/MyReviews';
 import Profile from './pages/Profile';
+import AdminDashboard from './pages/AdminDashboard';
 import FindMentor from './pages/FindMentor';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
@@ -95,6 +96,15 @@ const AppRoutes = () => {
           <ProtectedRoute>
             <Navbar />
             <FindMentor />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute requireAdmin>
+            <Navbar />
+            <AdminDashboard />
           </ProtectedRoute>
         }
       />
