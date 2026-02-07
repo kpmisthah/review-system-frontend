@@ -1,9 +1,11 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import './Navbar.css';
 
 const Navbar = () => {
     const { user, logout, isSenior } = useAuth();
+    const { theme, toggleTheme } = useTheme();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -32,9 +34,14 @@ const Navbar = () => {
                             Pending Requests
                         </Link>
                     ) : (
-                        <Link to="/request-review" className={`nav-link ${isActive('/request-review') ? 'active' : ''}`}>
-                            Request Interview
-                        </Link>
+                        <>
+                            <Link to="/find-mentor" className={`nav-link ${isActive('/find-mentor') ? 'active' : ''}`}>
+                                Find Mentor
+                            </Link>
+                            <Link to="/request-review" className={`nav-link ${isActive('/request-review') ? 'active' : ''}`}>
+                                Request Interview
+                            </Link>
+                        </>
                     )}
 
                     <Link to="/my-reviews" className={`nav-link ${isActive('/my-reviews') ? 'active' : ''}`}>
@@ -43,10 +50,16 @@ const Navbar = () => {
                 </div>
 
                 <div className="nav-user">
+                    <button onClick={toggleTheme} className="nav-theme-toggle" title="Toggle Theme">
+                        {theme === 'dark' ? '☀️' : '🌙'}
+                    </button>
                     <div className="user-info">
                         <span className="user-name">{user?.name}</span>
                         <span className="user-role">{user?.role}</span>
                     </div>
+                    <Link to="/profile" className="btn-icon" title="Edit Profile">
+                        ⚙️
+                    </Link>
                     <button onClick={handleLogout} className="btn-logout">
                         Logout
                     </button>

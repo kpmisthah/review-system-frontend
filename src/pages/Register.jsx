@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import './Auth.css';
 
 const Register = () => {
@@ -12,9 +13,9 @@ const Register = () => {
         role: 'JUNIOR',
         batch: ''
     });
-    const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const { register } = useAuth();
+    const { addToast } = useToast();
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -23,10 +24,9 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError('');
 
         if (formData.password !== formData.confirmPassword) {
-            setError('Passwords do not match');
+            addToast('Passwords do not match', 'error');
             return;
         }
 
@@ -40,9 +40,10 @@ const Register = () => {
                 role: formData.role,
                 batch: formData.batch
             });
+            addToast('Registration successful! Welcome!', 'success');
             navigate('/dashboard');
         } catch (err) {
-            setError(err.response?.data?.error || 'Registration failed');
+            addToast(err.response?.data?.error || 'Registration failed', 'error');
         } finally {
             setLoading(false);
         }
@@ -57,7 +58,7 @@ const Register = () => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="auth-form">
-                    {error && <div className="error-message">{error}</div>}
+
 
                     <div className="form-group">
                         <label htmlFor="name">Full Name</label>

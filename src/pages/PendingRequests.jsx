@@ -103,11 +103,25 @@ const PendingRequests = () => {
                             </div>
 
                             <div className="request-info">
-                                <div className="junior-info">
-                                    <div className="avatar">{request.junior?.name?.charAt(0)}</div>
-                                    <div>
+                                <div className="junior-profile-mini">
+                                    <img
+                                        src={request.junior?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(request.junior?.name)}&background=random`}
+                                        alt={request.junior?.name}
+                                        className="avatar-lg"
+                                    />
+                                    <div className="junior-details">
                                         <h4>{request.junior?.name}</h4>
-                                        <p>{request.junior?.batch || 'No batch'}</p>
+                                        <p className="batch-badge">{request.junior?.batch || 'No batch'}</p>
+                                        {request.junior?.bio && (
+                                            <p className="junior-bio">{request.junior.bio}</p>
+                                        )}
+                                        {request.junior?.skills && request.junior.skills.length > 0 && (
+                                            <div className="mini-skills">
+                                                {request.junior.skills.slice(0, 3).map(skill => (
+                                                    <span key={skill} className="mini-skill-pill">{skill}</span>
+                                                ))}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
 

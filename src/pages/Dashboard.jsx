@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        import { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
+import Skeleton from '../components/Skeleton';
 import './Dashboard.css';
 
 const Dashboard = () => {
     const { user, isSenior } = useAuth();
     const [stats, setStats] = useState({
         totalReviews: 0,
-        pendingRequests: 0,
+        pendingRequests: 0,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
         avgRating: 0
     });
     const [recentActivity, setRecentActivity] = useState([]);
@@ -63,9 +64,53 @@ const Dashboard = () => {
 
     if (loading) {
         return (
-            <div className="dashboard-loading">
-                <div className="spinner"></div>
-                <p>Loading dashboard...</p>
+            <div className="dashboard">
+                <div className="dashboard-header">
+                    <div className="welcome-section">
+                        <div>
+                            <Skeleton type="text" width="300px" height="40px" />
+                            <Skeleton type="text" width="100px" height="24px" style={{ marginTop: '10px' }} />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="stats-grid">
+                    {[1, 2, 3].map((i) => (
+                        <div key={i} className="stat-card">
+                            <Skeleton type="circle" width="60px" height="60px" />
+                            <div className="stat-info" style={{ width: '100%' }}>
+                                <Skeleton type="text" width="40px" height="32px" />
+                                <Skeleton type="text" width="100px" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="dashboard-content">
+                    <div className="recent-activity">
+                        <Skeleton type="text" width="200px" height="30px" style={{ marginBottom: '20px' }} />
+                        <div className="activity-list">
+                            {[1, 2, 3].map((i) => (
+                                <div key={i} className="activity-item">
+                                    <div className="activity-header">
+                                        <Skeleton type="text" width="150px" />
+                                        <Skeleton type="text" width="80px" />
+                                    </div>
+                                    <Skeleton type="text" width="120px" style={{ marginBottom: '8px' }} />
+                                    <Skeleton type="text" width="100%" />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="quick-actions">
+                        <Skeleton type="text" width="150px" height="30px" style={{ marginBottom: '20px' }} />
+                        <div className="action-buttons">
+                            <Skeleton type="rect" height="60px" />
+                            <Skeleton type="rect" height="60px" />
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

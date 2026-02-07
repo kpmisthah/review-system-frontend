@@ -35,6 +35,20 @@
     gap: 24px;
 }
 
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    transition: all 0.3s ease;
+}
+
 .request-success {
     display: flex;
     flex-direction: column;

@@ -1,6 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
+import { ToastProvider } from './context/ToastContext';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -8,6 +12,11 @@ import Dashboard from './pages/Dashboard';
 import RequestReview from './pages/RequestReview';
 import PendingRequests from './pages/PendingRequests';
 import MyReviews from './pages/MyReviews';
+import Profile from './pages/Profile';
+import AdminDashboard from './pages/AdminDashboard';
+import FindMentor from './pages/FindMentor';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
 import './App.css';
 
 const AppRoutes = () => {
@@ -23,6 +32,8 @@ const AppRoutes = () => {
 
   return (
     <Routes>
+      <Route path="/" element={<Home />} />
+
       {/* Public Routes */}
       <Route
         path="/login"
@@ -70,10 +81,37 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Navbar />
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/find-mentor"
+        element={
+          <ProtectedRoute>
+            <Navbar />
+            <FindMentor />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute requireAdmin>
+            <Navbar />
+            <AdminDashboard />
+          </ProtectedRoute>
+        }
+      />
 
-      {/* Redirect root to dashboard or login */}
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+
+      {/* 404 Route */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
@@ -82,9 +120,15 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <div className="app">
-          <AppRoutes />
-        </div>
+        <ThemeProvider>
+          <ToastProvider>
+            <div className="app">
+              <ScrollToTop />
+              <AppRoutes />
+              <Footer />
+            </div>
+          </ToastProvider>
+        </ThemeProvider>
       </AuthProvider>
     </Router>
   );
